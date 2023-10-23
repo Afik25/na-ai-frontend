@@ -1,0 +1,42 @@
+// languages
+.languages {
+  position: relative;
+}
+
+.lang-options {
+  position: absolute;
+}
+.lang-selected {
+  padding: 5px;
+}
+.lang-selected,
+.lang-option {
+  cursor: pointer;
+}
+.lang-options {
+  top: 27px;
+  display: block;
+  background-color: $white-color;
+  border: 1px solid $grey-color-2;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 5px;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.lang-selected img,
+.lang-option img {
+  width: 14px;
+  height: 12px;
+  border-radius: 2px;
+}
+.lang-selected span,
+.lang-option span {
+  font-size: $size-small-1;
+  margin-left: 3px;
+}
+
+.lang-option {
+  padding: 4px;
+}

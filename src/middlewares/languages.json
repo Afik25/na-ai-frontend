@@ -1,0 +1,12 @@
+[
+  {
+    "flag": "flag-fr.png", 
+    "label": "french",
+    "lang":"fr"
+  },
+  { 
+    "flag": "flag-en.png",
+    "label": "english",
+    "lang":"en"
+  }
+]

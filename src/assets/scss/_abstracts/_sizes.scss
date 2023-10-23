@@ -1,0 +1,8 @@
+$size-large: 1.25em;
+$size-medium: 1em;
+$size-small-1: 0.85em;
+$size-small-2: 0.75em;
+
+@mixin padding($padding: 10px) {
+  padding: $padding;
+}

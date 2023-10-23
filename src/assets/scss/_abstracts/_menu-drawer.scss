@@ -1,0 +1,62 @@
+.menu-btn {
+  width: 40px;
+  height: 35px;
+  /* border: 1px solid #121a5a; */
+  /* border-radius: 4px; */
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* box-shadow: 0 2px 5px rgba(18, 26, 90, 0.2); */
+  transition: all 0.5s ease-in-out;
+}
+.burger {
+  width: 30px;
+  height: 1px;
+  background: $black-color;
+  /* border-radius: 5px; */
+  transition: all 0.5s ease-in-out;
+}
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 1px;
+  background: $black-color;
+  /* border-radius: 5px; */
+  /* box-shadow: 0 2px 5px rgba(18, 26, 90, 0.2); */
+  transition: all 0.5s ease-in-out;
+}
+.burger::before {
+  transform: translateY(-16px);
+  top: 25px;
+}
+.burger::after {
+  transform: translateY(16px);
+  bottom: 25px;
+}
+
+.menu-btn.open .burger {
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
+}
+.menu-btn.open .burger::before {
+  transform: rotate(45deg) translate(35px, -35px);
+}
+.menu-btn.open .burger::after {
+  transform: rotate(-45deg) translate(35px, 35px);
+}
+
+@media only screen and (max-width: 688px) {
+  .menu-btn {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 1312px) {
+}
+
+@media only screen and (max-width: 992px) {
+}

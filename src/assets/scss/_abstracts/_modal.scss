@@ -1,0 +1,236 @@
+.modal {
+  width: 100%;
+  height: 100%;
+}
+.modal-head {
+  width: 100%;
+  padding: 0.5rem;
+  border-bottom: 1px solid $grey-color-2;
+  height: 45px;
+
+  .t-1 {
+    font-family: "raleway-regular", sans-serif;
+    font-size: $size-medium;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .modal_close {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: $black-color;
+  }
+}
+
+.modal-body {
+  width: 100%;
+  height: calc(100% - 45px);
+  @include padding(1em);
+  overflow-y: auto;
+
+  .normal {
+    background-color: $main-color;
+    border-radius: 0.5rem;
+    color: $white-color;
+  }
+
+  .validate{
+    background-color: $green-color;
+    border-radius: 0.5rem;
+    color: $white-color;
+  }
+
+  .first-signers {
+    width: 100%;
+    display: block;
+
+    .block-1 {
+      display: flex;
+      justify-content: space-between;
+
+      .input-div {
+        width: 30%;
+      }
+
+      .button {
+        width: 8%;
+        height: 40px;
+        font-size: 0.7em;
+      }
+    }
+    .block-2 {
+      width: 100%;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 4em;
+        thead {
+          width: 100%;
+          background-color: $grey-color-3;
+          border-top: 1px solid $grey-color-2;
+          border-bottom: 1px solid $grey-color-2;
+          font-size: $size-small-1;
+          color: $grey-color-1;
+          tr {
+            width: 100%;
+            th {
+              text-align: left;
+              @include padding(0.5rem);
+            }
+          }
+        }
+        tbody {
+          width: 100%;
+          tr {
+            width: 100%;
+            .tbody-col-1{
+              font-size: $size-small-1;
+            }
+            .tbody-col-2{
+              color: $gold-color;
+            }
+            td {
+              text-align: left;
+              padding: 0.3rem 0.4rem;
+              .signers-order {
+                input[type="radio"] {
+                  display: none;
+                }
+                label {
+                  position: relative;
+                  color: $main-color;
+                  font-family: "Times New Roman", Times, sans-serif;
+                  cursor: pointer;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.8em;
+                  border: 1px solid $main-color;
+                  padding: 0.3em 0.4em;
+                  border-radius: 0.5em;
+                  margin-right: 0.3em;
+                  font-size: 0.8em;
+                }
+                label:before {
+                  content: "";
+                  height: 1em;
+                  width: 1em;
+                  border: 3px solid $main-color;
+                  border-radius: 50%;
+                }
+                input[type="radio"]:checked + label::before {
+                  height: 1em;
+                  width: 1em;
+                  border: 0.15em solid $white-color;
+                }
+
+                input[type="radio"]:checked + label {
+                  background-color: $main-color;
+                  color: $white-color;
+                }
+              }
+              button {
+                border: none;
+                background-color: $grey-color-2;
+                color: rgba($color: $black-color, $alpha: 0.7);
+                border-radius: 0.5em;
+                padding: 0.5em 0.8em;
+                cursor: pointer;
+                transition: all .3s ease-in-out;
+                &:hover{
+                  background-color: $black-color;
+                  color: $white-color;
+                }
+              }
+            }
+          }
+        }
+      }
+      .btns-block{
+        border-top: 1px solid $grey-color-2;
+        display: flex;
+        justify-content: flex-end;
+        padding: 1em 0;
+        .btn{
+          cursor: pointer;
+          border: none;
+          padding: 0.7em 0.9em;
+          border-radius: 0.5em;
+        }
+        .cancel{
+          background-color: $grey-color-2;
+          color: $black-color;
+          margin-right: 0.7em;
+        }
+        .validate-next-step{
+          background-color: $main-color;
+          color: $white-color;
+        }
+      }
+    }
+  }
+
+  // configuration's user
+  .config-head {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    margin-bottom: 10px;
+    .config-tab {
+      height: 100%;
+      color: $grey-color-1;
+      font-size: $size-small-1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include padding(1rem);
+    }
+    .active-tab {
+      background-color: $main-color;
+      border-radius: 0.5rem;
+      color: $white-color;
+      font-weight: bold;
+      transition: all 0.3s ease-in;
+      span {
+        letter-spacing: 1px;
+      }
+    }
+  }
+  .config-body {
+    height: calc(100% - 50px);
+    .container-48 {
+      width: 48%;
+    }
+    .first-step {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding-top: 1rem;
+    }
+
+    .loader {
+      pointer-events: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: $main-color;
+      margin: auto;
+      animation: _loader 1.4s ease 0.5s infinite;
+    }
+    @keyframes _loader {
+      0% {
+        transform: rotate(0turn);
+      }
+      100% {
+        transform: rotate(1turn);
+      }
+    }
+
+    .button{
+      width: 100%;
+      padding: 0.8em 1em;
+    }
+  }
+}

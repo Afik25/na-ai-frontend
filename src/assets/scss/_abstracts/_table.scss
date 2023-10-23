@@ -1,0 +1,113 @@
+.table {
+  max-height: calc(100% - 160px);
+  @include padding(0 0 1rem 0);
+
+  table {
+    height: auto;
+    border-collapse: collapse;
+    thead {
+      background-color: $grey-color-3;
+      border-top: 1px solid $grey-color-2;
+      border-bottom: 1px solid $grey-color-2;
+      font-size: $size-small-1;
+      color: $grey-color-1;
+      th {
+        @include padding(0.5rem);
+        text-align: left;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid $grey-color-2;
+      }
+      td {
+        text-align: left;
+        padding: 0.3rem 0.5rem;
+      }
+
+      .names {
+        span {
+          background-color: $grey-color-3;
+          border-radius: 0.5rem;
+          @include padding(0.45rem);
+          margin-right: 0.5rem;
+        }
+        div {
+          text-align: left;
+          h3 {
+            font-size: $size-small-1;
+            letter-spacing: 0.1rem;
+          }
+          p {
+            font-size: $size-small-2;
+            color: $grey-color-1;
+            font-weight: bold;
+            letter-spacing: 0.05rem;
+          }
+        }
+      }
+      .role {
+        color: $black-color;
+        font-size: $size-small-1;
+        font-weight: 600;
+        letter-spacing: 0.025rem;
+      }
+      .status {
+        padding: 0.3rem 0.5rem;
+        border: 1px solid $grey-color-2;
+        border-radius: 0.5rem;
+        font-size: $size-small-2;
+      }
+      .success {
+        color: $green-color;
+      }
+      .failed {
+        color: $red-color;
+      }
+
+      .pending {
+        color: $grey-color-1;
+      }
+
+      .action {
+        .button {
+          margin-right: 0.5em;
+          border-radius: 0.5em;
+          border: 1px solid $grey-color-2;
+          color: $black-color;
+          font-size: $size-small-1;
+          transition: all 0.3s ease-in-out;
+          @include padding(0.4rem);
+
+          &:hover {
+            background-color: #ffdb9b;
+          }
+        }
+      }
+    }
+  }
+}
+.pagination {
+  @include padding(0.5rem);
+  span {
+    margin-right: 0.5rem;
+  }
+  select {
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    margin-right: 1.5rem;
+    border: 1px solid $black-color;
+    background-color: transparent;
+  }
+  .button {
+    margin: 0.3rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    border: 1px solid $grey-color-2;
+    padding: 0.3rem !important;
+
+    .icon {
+      color: $grey-color-2;
+    }
+  }
+}
