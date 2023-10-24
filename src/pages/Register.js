@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchemaRegister, wait } from "../utils/utils";
 //
+import { inscription } from "../services/users";
 
 const Register = () => {
   const [showPwd, setShowPwd] = useState(false);
@@ -33,6 +34,39 @@ const Register = () => {
     setIsSending(true);
     await wait(1000);
     //
+    inscription(data)
+      .then((result) => {
+        if (result?.data?.status === 1) {
+          setIsSending(false);
+          setResponseMessage(result?.data?.message);
+          setClassNameMsg(
+            "width msg-box onSuccess fade-in display-flex justify-content-center align-items-center"
+          );
+        }
+        const timer = setTimeout(() => {
+          reset();
+          navigate("/login", { replace: true });
+        }, 3000);
+        return () => clearTimeout(timer);
+      })
+      .catch((error) => {
+        setIsSending(false);
+        setClassNameMsg(
+          "width msg-box onFailed fade-in display-flex justify-content-center align-items-center"
+        );
+        if (!error?.response) {
+          setResponseMessage("No server response");
+        } else {
+          setResponseMessage(error?.response?.data?.message);
+        }
+        const timer = setTimeout(() => {
+          setClassNameMsg(
+            "width msg-box display-flex justify-content-center align-items-center"
+          );
+          setResponseMessage("");
+        }, 3500);
+        return () => clearTimeout(timer);
+      });
   };
 
   return (
