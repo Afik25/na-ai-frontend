@@ -27,8 +27,12 @@ import {
   validationCompleteInscriptionStepOne,
   validationCompleteInscriptionStepTwo,
 } from "../utils/utils";
-import { completeInscription, completeActivation } from "../services/users";
-import {SERVER_URL} from "../routes/index"
+import {
+  completeInscription,
+  completeActivation,
+  loadData,
+} from "../services/authentication";
+import { SERVER_URL } from "../routes/index";
 
 const Administration = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -113,7 +117,7 @@ const Administration = () => {
           } else {
             swal({
               title: "Operation failed!",
-              text: error?.response?.data?.message,
+              text: error?.response?.data?.detail?.message,
               icon: "warning",
               buttons: true,
             });
@@ -374,7 +378,9 @@ const Administration = () => {
                 Confirm Password
               </label>
               {errors.confirm_password && (
-                <span className="fade-in">{errors.confirm_password.message}</span>
+                <span className="fade-in">
+                  {errors.confirm_password.message}
+                </span>
               )}
             </div>
           </div>
@@ -383,10 +389,7 @@ const Administration = () => {
     ),
     1: (
       <>
-        <p className="title t-2">
-          Un code de confirmation permettant l'activation de votre compte a été
-          envoyé par SMS via le numéro de téléphone que vous avez renseigné.
-        </p>
+        <p className="title t-2">A confirmation code was send by SMS.</p>
         <div className="width">
           <div className="input-div">
             <input
@@ -409,18 +412,13 @@ const Administration = () => {
       </>
     ),
   };
+
   return (
     <HelmetProvider>
       <Helmet>
-        <title>na AI - Administration</title>
-        <meta
-          name="description"
-          content=""
-        />
-        <meta
-          name="keywords"
-          content=""
-        />
+        <title>na-AI - Administration</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
       </Helmet>
       <div className="user">
         <div className="left">
@@ -470,21 +468,20 @@ const Administration = () => {
                 >
                   <div className="option">
                     <img
-                      // src={
-                      //   !connectedUser?.userInfo?.thumbnails
-                      //     ? process.env.PUBLIC_URL + "/user.png"
-                      //     : `${SERVER_URL}/${connectedUser?.userInfo?.thumbnails}`
-                      // }
-                      src={process.env.PUBLIC_URL + "/user.png"}
+                      src={
+                        !connectedUser?.userInfo?.thumbnails
+                          ? process.env.PUBLIC_URL + "/user.png"
+                          : `${SERVER_URL}/${connectedUser?.userInfo?.thumbnails}`
+                      }
                       alt="user-profile"
                       className="width height"
                     />
                   </div>
-                  <h3 className="title t-2">Username
-                      {/* {connectedUser?.userInfo?.prename +
-                        " " +
-                        connectedUser?.userInfo?.name} */}
-                    </h3>
+                  <h3 className="title t-2">
+                    {connectedUser?.userInfo?.prename +
+                      " " +
+                      connectedUser?.userInfo?.name}
+                  </h3>
                   {option ? (
                     <BiChevronUp className="icon" />
                   ) : (
@@ -517,8 +514,7 @@ const Administration = () => {
       </div>
       <Modal
         contentLabel="Complete configuration"
-        // isOpen={connectedUser.userInfo?.is_completed ? false : true}
-        isOpen={false }
+        isOpen={connectedUser.userInfo?.is_completed ? false : true}
         shouldCloseOnOverlayClick={false}
         style={{
           overlay: { backgroundColor: "rgba(0,0,0,0.75)", zIndex: 5 },

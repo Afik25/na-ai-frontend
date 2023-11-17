@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchemaRegister, wait } from "../utils/utils";
 //
-import { inscription } from "../services/users";
+import { inscription } from "../services/authentication";
 
 const Register = () => {
   const [showPwd, setShowPwd] = useState(false);
@@ -57,7 +57,7 @@ const Register = () => {
         if (!error?.response) {
           setResponseMessage("No server response");
         } else {
-          setResponseMessage(error?.response?.data?.message);
+          setResponseMessage(error?.response?.data?.detail?.message);
         }
         const timer = setTimeout(() => {
           setClassNameMsg(

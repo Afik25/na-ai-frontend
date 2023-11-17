@@ -30,34 +30,37 @@ export const routes = [
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
       { path: "/qa", element: <QA /> },
-      { path: "/collector", element: <Collector /> },
       {
-        path: "/admin",
-        element: <Administration />,
+        element: <PersistLogin />,
         children: [
-          { path: "/admin", element: <Dashboard /> },
-          { path: "users", element: <User /> },
+          {
+            element: <RequireAuth allowedRoles={[ROLES.admin]} />,
+            children: [
+              {
+                path: "/admin",
+                element: <Administration />,
+                children: [
+                  { path: "/admin", element: <Dashboard /> },
+                  { path: "users", element: <User /> },
+
+                ],
+              },
+            ],
+          },
         ],
       },
       // {
       //   element: <PersistLogin />,
       //   children: [
       //     {
-      //       element: <RequireAuth allowedRoles={[ROLES.admin]} />,
+      //       element: <RequireAuth allowedRoles={[ROLES.user]} />,
       //       children: [
-      //         {
-      //           path: "/admin",
-      //           element: <Administration />,
-      //           children: [
-      //             { path: "/admin", element: <Dashboard /> },
-      //             { path: "users", element: <User /> },
-
-      //           ],
-      //         },
+      //         { path: "/user", element: <Collector /> },
       //       ],
       //     },
       //   ],
       // },
+      { path: "/user", element: <Collector /> },
       { path: "*", element: <NotFound /> },
       { path: "/unauthorized", element: <Unauthorized /> },
     ],

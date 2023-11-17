@@ -1,6 +1,7 @@
 import axios from "axios";
+import {SERVER_URL} from "../routes/index"
 
-const BASE_URL = "http://192.168.1.109:8000/api/v1";
+const BASE_URL = `${SERVER_URL}/api/v1`;
 
 export default axios.create({ baseURL: BASE_URL });
 export const axiosPrivate = axios.create({

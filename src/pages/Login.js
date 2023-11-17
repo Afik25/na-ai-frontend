@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchemaLogin, wait } from "../utils/utils";
 //
+import { login } from "../services/authentication";
 import useAuth from "../state/context/hooks/useAuth";
 //
 const Login = () => {
@@ -32,6 +33,37 @@ const Login = () => {
   const onSubmit = async (data) => {
     setIsSending(true);
     await wait(1000);
+    //
+    login(data)
+      .then((result) => {
+        if (result?.data?.isLogged) {
+          setIsSending(false);
+          setResponseMessage(result?.data?.message);
+        }
+        const accessToken = result?.data?.accessToken;
+        const sys_role = result?.data?.sys_role;
+        const to = "/" + sys_role;
+        setAuth({ sys_role, accessToken });
+        navigate(to, { replace: true });
+      })
+      .catch((error) => {
+        setIsSending(false);
+        setClassNameMsg(
+          "width msg-box onFailed fade-in display-flex justify-content-center align-items-center"
+        );
+        if (!error?.response) {
+          setResponseMessage("No server response");
+        } else {
+          setResponseMessage(error?.response?.data?.detail);
+        }
+        const timer = setTimeout(() => {
+          setClassNameMsg(
+            "width msg-box display-flex justify-content-center align-items-center"
+          );
+          setResponseMessage("");
+        }, 3500);
+        return () => clearTimeout(timer);
+      });
   };
 
   return (

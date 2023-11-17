@@ -1,5 +1,44 @@
 import axios from "../middlewares/http-common";
-import { REGISTER, COMPLETE, COMPLETE_ACTIVATION, USERS } from "../routes";
+import moment from "moment";
+import { LOGIN, REGISTER, COMPLETE, COMPLETE_ACTIVATION, LOAD_DATA } from "../routes";
+
+export function login(data) {
+  //
+  const dates = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+  const location = "N/A";
+  const latitude = "N/A";
+  const longitude = "N/A";
+  const device = "PC";
+  const ip_address = "N/A";
+  const operating_system = "N/A";
+  const navigator = "N/A";
+  //
+  const _data = {
+    username: data.username,
+    password: data.password,
+    dates: dates,
+    location: location,
+    latitude: latitude,
+    longitude: longitude,
+    device: device,
+    ip_address: ip_address,
+    operating_system: operating_system,
+    navigator: navigator,
+  };
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(LOGIN, _data, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
 
 export function inscription(data) {
   const _data = {
@@ -35,13 +74,13 @@ export function completeInscription(axiosPrivate, data) {
     mail: data?.mail || "",
     birth: data.birth,
     birth_location: data.birth_location,
-    is_completed: data.is_completed,
+    is_completed: false,
     thumbnails: data.thumbnails,
     username: data.username,
     old_password: data.old_password,
     new_password: data.new_password,
     //
-    dates: new Date(),
+    dates: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
     location: "N/A",
     latitude: "N/A",
     longitude: "N/A",
@@ -68,9 +107,9 @@ export function completeInscription(axiosPrivate, data) {
 export function completeActivation(axiosPrivate, data) {
   const _data = {
     id: data.id,
-    dates: new Date(),
+    dates: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
     confirmation_code: data.confirmation_code,
-    is_completed: data.is_completed,
+    is_completed: true,
   };
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
@@ -87,12 +126,12 @@ export function completeActivation(axiosPrivate, data) {
   });
 }
 
-// USERS
-export function getUsers(axiosPrivate, signal) {
+export function loadData(axiosPrivate) {
   return new Promise(async (resolve, reject) => {
     await axiosPrivate
-      .get(USERS, {
-        signal: signal,
+      .get(LOAD_DATA,{
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       })
       .then((response) => {
         resolve(response);

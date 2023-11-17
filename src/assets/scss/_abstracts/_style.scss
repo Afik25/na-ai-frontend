@@ -911,6 +911,7 @@ body {
     height: 100%;
     background-color: $white-color;
     display: flex;
+    justify-content: space-between;
     .left,
     .right {
       height: 100%;
@@ -993,8 +994,38 @@ body {
       .top,
       .bottom {
         width: 100%;
-        height: 48%;
+        height: 45%;
         padding: 1rem;
+      }
+      .btn-load-data {
+        width: 100%;
+        height: 8%;
+        position: relative;
+        padding: 0.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .loading {
+          width: 100%;
+          height: 100%;
+          background-color: rgba($color: $black-color, $alpha: 0.65);
+          color: $white-color;
+          font-weight: bold;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1;
+        }
+        button {
+          position: absolute;
+          padding: 0.5rem 1rem;
+          background-color: $main-color;
+          color: $white-color;
+          border: none;
+          border-radius: 0.3rem;
+          font-size: 1rem;
+        }
       }
     }
   }
@@ -1145,12 +1176,51 @@ body {
     }
   }
   .body {
+    position: relative;
     width: 100%;
     height: calc(100% - 60px);
     background-color: rgba($color: $grey-color-1, $alpha: 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
+    .loading{
+      position: absolute;
+      width: 70%;
+      height: 85%;
+      background-color: rgba($color: $black-color, $alpha: 0.65);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9;
+      .loading-content{
+        display: flex;
+        align-items: center;
+        .loader{
+          pointer-events: none;
+          width: 100px;
+          height: 100px;
+          border-radius: 100%;
+          border: 2px solid transparent;
+          border-top-color: $white-color;
+          border-left-color: $white-color;
+          border-right-color: $white-color;
+          margin-right: 1rem;
+          animation: loadMove 1s ease infinite;
+        }
+        @keyframes loadMove {
+          0%{
+            transform: rotate(0turn);
+          }
+          100%{
+            transform: rotate(1turn);
+          }
+        }
+        span{
+          color: $white-color;
+          font-size: $size-large;
+        }
+      }
+    }
     .container {
       width: 70%;
       height: 85%;
@@ -1158,14 +1228,18 @@ body {
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
       @include padding(1rem);
+      text-align: center;
 
       .snapshot {
         width: 100%;
         height: auto;
+        max-height: 120px;
+        overflow-y: auto;
         max-height: 110px;
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid $grey-color-3;
+        text-align: justify;
         .t-2 {
           color: $gold-color;
           font-weight: bold;
@@ -1175,199 +1249,236 @@ body {
           color: $black-color;
         }
       }
-      .caption {
+      .steps {
         width: 100%;
-        height: calc(100% - 110px);
+        height: auto;
+        max-height: calc(100% - 120px);
+      }
+      .audios {
+        width: 100%;
+        height: 90px;
+        overflow-x: auto;
+        padding: 0.5em;
         display: flex;
-        justify-content: space-between;
-        .normal {
-          background-color: $main-color;
-          border-radius: 0.3rem;
-        }
-        .left,
-        .right {
-          height: 100%;
-        }
-        .left {
-          width: 30%;
-          padding-top: 1rem;
-          .t-2 {
+        align-items: center;
+        margin-bottom: 0.5rem;
+        .audio-item {
+          display: flex;
+          align-items: center;
+          margin-right: 2rem;
+          .ruban{
             color: $main-color;
-            font-weight: bold;
+            font-size: 0.7rem;
           }
-          form {
-            .tongues {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              padding: 1rem 0.5rem;
-              overflow-x: auto;
-              margin-bottom: 1rem;
-              input[type="radio"] {
-                display: none;
-              }
-              label {
-                position: relative;
-                color: $main-color;
-                font-family: "Times New Roman", Times, sans-serif;
-                cursor: pointer;
-                display: inline-flex;
-                align-items: center;
-                gap: 0.8em;
-                border: 1px solid $main-color;
-                padding: 0.3em 0.4em;
-                border-radius: 0.5em;
-                margin-right: 0.3em;
-                font-size: 0.8em;
-              }
-              label:before {
-                content: "";
-                height: 1em;
-                width: 1em;
-                border: 3px solid $main-color;
-                border-radius: 50%;
-              }
-              input[type="radio"]:checked + label::before {
-                height: 1em;
-                width: 1em;
-                border: 0.15em solid $white-color;
-              }
-
-              input[type="radio"]:checked + label {
-                background-color: $main-color;
-                color: $white-color;
-              }
-            }
-            .recording {
-              width: 100%;
-              text-align: center;
-              padding: 1rem 0;
-              .circle {
-                width: 50%;
-                height: 170px;
-                border: 1px solid $grey-color-3;
-                border-radius: 100%;
-                margin: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                .icon {
-                  font-size: 3rem;
-                }
-              }
-              .circle-recording::after,
-              .circle-recording::before {
-                content: " ";
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                border-radius: 100%;
-              }
-              .circle-recording::before {
-                background-color: transparent;
-                animation: pulse 1250ms ease-out infinite;
-                z-index: 10;
-              }
-              .circle-recording::after {
-                background-color: lightblue;
-                z-index: 1;
-                animation: pulse 1250ms ease-out infinite;
-              }
-              .t-3 {
-                margin-top: 1rem;
-              }
-              .button {
-                margin: auto;
-                margin-top: 0.5rem;
-                display: flex;
-                align-items: center;
-                background-color: $black-color;
-                color: $white-color;
-                transition: all 0.5s ease-in-out;
-                span {
-                  margin-left: 0.7rem;
-                }
-                &:hover {
-                  background-color: $grey-color-3;
-                  color: $black-color;
-                }
-              }
-              .button-recording {
-                background-color: $red-color;
-              }
+          .input-audio {
+            font-size: $size-small-1;
+          }
+          .icon {
+            background-color: $grey-color-3;
+            border-radius: 40%;
+            cursor: pointer;
+            padding: 0.9rem;
+            transition: all 0.5s ease-in-out;
+            font-size: $size-large;
+            
+            &:hover {
+              background-color: $black-color;
+              color: $white-color;
             }
           }
         }
-        .right {
-          width: 65%;
-          .audios {
-            width: 100%;
-            height: 90px;
-            overflow-x: auto;
-            padding: 0.5em;
-            display: flex;
-            align-items: center;
-            .audio-item {
-              display: flex;
-              align-items: center;
-              margin-right: 2rem;
-              .input-audio {
-                font-size: $size-small-1;
-              }
-              span {
-                background-color: $grey-color-3;
-                border-radius: 40%;
-                cursor: pointer;
-                padding: 1rem;
-                transition: all 0.5s ease-in-out;
-                .icon {
-                  font-size: $size-large;
+      }
+      .recording {
+        width: 50%;
+        text-align: center;
+        padding: 1rem 0;
+        margin: auto;
+        .circle {
+          width: 50%;
+          height: 170px;
+          // border: 1px solid $grey-color-3;
+          border-radius: 100%;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          .icon {
+            font-size: 3rem;
+          }
+        }
+        .circle-recording::after,
+        .circle-recording::before {
+          content: " ";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          border-radius: 100%;
+        }
+        .circle-recording::before {
+          background-color: transparent;
+          animation: pulse 1250ms ease-out infinite;
+          z-index: 10;
+        }
+        .circle-recording::after {
+          background-color: lightblue;
+          z-index: 1;
+          animation: pulse 1250ms ease-out infinite;
+        }
+        .t-3 {
+          margin-top: 1rem;
+        }
+        .button {
+          margin: auto;
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          background-color: $black-color;
+          color: $white-color;
+          transition: all 0.5s ease-in-out;
+          span {
+            margin-left: 0.7rem;
+          }
+          &:hover {
+            background-color: $grey-color-3;
+            color: $black-color;
+          }
+        }
+        .button-recording {
+          background-color: $red-color;
+        }
+      }
+      .step-1 {
+        .btn-audio {
+          border: none;
+          border-radius: 0.4rem;
+          background-color: $main-color;
+          color: $white-color;
+          cursor: pointer;
+          padding: 0.6rem 1.3rem;
+        }
+        margin-bottom: 1rem;
+      }
+      .step-2 {
+        margin-bottom: 0.6rem;
+        .caption {
+          width: 100%;
+          height: calc(100% - 110px);
+          display: flex;
+          justify-content: space-between;
+          .normal {
+            background-color: $main-color;
+            border-radius: 0.3rem;
+          }
+          .left,
+          .right {
+            height: 100%;
+          }
+          .left {
+            width: 30%;
+            padding-top: 1rem;
+            text-align: justify;
+            .t-2 {
+              color: $main-color;
+              font-weight: bold;
+            }
+            form {
+              .tongues {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                padding: 1rem 0.5rem;
+                overflow-x: auto;
+                margin-bottom: 1rem;
+                input[type="radio"] {
+                  display: none;
                 }
-                &:hover {
-                  background-color: $black-color;
+                label {
+                  position: relative;
+                  color: $main-color;
+                  font-family: "Times New Roman", Times, sans-serif;
+                  cursor: pointer;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.8em;
+                  border: 1px solid $main-color;
+                  padding: 0.3em 0.4em;
+                  border-radius: 0.5em;
+                  margin-right: 0.3em;
+                  font-size: 0.8em;
+                }
+                label:before {
+                  content: "";
+                  height: 1em;
+                  width: 1em;
+                  border: 3px solid $main-color;
+                  border-radius: 50%;
+                }
+                input[type="radio"]:checked + label::before {
+                  height: 1em;
+                  width: 1em;
+                  border: 0.15em solid $white-color;
+                }
+                input[type="radio"]:checked + label {
+                  background-color: $main-color;
                   color: $white-color;
                 }
               }
             }
           }
-          .captions {
-            width: 100%;
-            height: calc(100% - 120px);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 0.5em;
-            margin-bottom: 1rem;
-            .item {
+          .right {
+            width: 65%;
+            .captions {
               width: 100%;
-              height: auto;
+              height: calc(100% - 120px);
+              overflow-y: auto;
               display: flex;
               flex-direction: column;
-              border: 1px solid $grey-color-3;
-              border-radius: 0.5em;
-              padding: 0.7em;
-              margin-bottom: 0.5rem;
-              .t-2 {
-                color: $third-color;
-                font-weight: bold;
-                font-size: $size-small-1;
-                span {
-                  background-color: $black-color;
-                  color: $white-color;
-                  border-radius: 0.4em;
-                  cursor: pointer;
-                  padding: 0.4em;
+              padding: 0.5em;
+              margin-bottom: 1rem;
+              text-align: justify;
+              .item {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                border: 1px solid $grey-color-3;
+                border-radius: 0.5em;
+                padding: 0.7em;
+                margin-bottom: 0.5rem;
+                .t-2 {
+                  color: $third-color;
+                  font-weight: bold;
+                  font-size: $size-small-1;
+                  span {
+                    background-color: $black-color;
+                    color: $white-color;
+                    border-radius: 0.4em;
+                    cursor: pointer;
+                    padding: 0.4em;
+                  }
                 }
-              }
-              .t-3 {
-                color: $black-color;
-                font-size: $size-small-2;
+                .t-3 {
+                  color: $black-color;
+                  font-size: $size-small-2;
+                }
               }
             }
           }
+        }
+      }
+      .btn-move {
+        border: none;
+        background-color: $grey-color-2;
+        color: $black-color;
+        padding: 0.7rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          background-color: $black-color;
+          color: $white-color;
         }
       }
     }

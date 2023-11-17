@@ -95,12 +95,3 @@ export const validationCompleteInscriptionStepOne = Yup.object().shape({
 export const validationCompleteInscriptionStepTwo = Yup.object().shape({
   confirmation_code: Yup.string().required("Input confirmation's code"),
 });
-
-export const validationSigners = Yup.object().shape({
-  names: Yup.string()
-    .required("Names is required")
-    .min(2, "Names require at least 2 caractors"),
-  mail: Yup.string().required("E-mail is required").email("Input a valid address e-mail"),
-  type: Yup.string().required("Gender is required"),
-  
-});

@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState } from "react";
 import { FiUser, FiUsers } from "../../middlewares/icons";
 //
 import {
@@ -16,6 +16,10 @@ import {
   Sector,
   Cell,
 } from "recharts";
+import useAxiosPrivate from "../../state/context/hooks/useAxiosPrivate";
+import swal from "sweetalert";
+import { wait } from "../../utils/utils";
+import { loadData } from "../../services/authentication";
 
 const data = [
   {
@@ -119,6 +123,47 @@ const renderCustomizedLabel = ({
 };
 
 const Dashboard = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onLoadData = async () => {
+    // data traitment for submitting
+    await wait(1000);
+    //
+    setIsSubmitting(!isSubmitting);
+    loadData(axiosPrivate)
+      .then((result) => {
+        let response = result;
+        if (response?.data?.status === 1) {
+          setIsSubmitting(!isSubmitting);
+          swal({
+            title: "Processing and Loading Data",
+            text: `${response?.data?.message}`,
+            icon: "success",
+            button: "Ok",
+          });
+        }
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        if (!error?.response) {
+          swal({
+            title: "Oups!",
+            text: "No server response!",
+            icon: "warning",
+            buttons: true,
+          });
+        } else {
+          swal({
+            title: "Operation failed!",
+            text: error?.response?.data?.detail?.message,
+            icon: "warning",
+            buttons: true,
+          });
+        }
+      });
+  };
+
   return (
     <div className="dashboard">
       <div className="left">
@@ -188,6 +233,12 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="right">
+        <div className="btn-load-data">
+          {isSubmitting && (
+            <div className="loading">Data processing and loading...</div>
+          )}
+          <button onClick={onLoadData}>Load Data</button>
+        </div>
         <div className="top">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart width={400} height={400}>
